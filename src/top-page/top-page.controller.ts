@@ -22,7 +22,7 @@ export class TopPageController {
 
   @Get('get/:alias')
   async get(@Param('alias') alias: string): Promise<TopPageModel> {
-    this.configService('TEST');
+    this.configService.get('TEST');
   }
 
   @Delete(':id')
