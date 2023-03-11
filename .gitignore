@@ -1,9 +1,7 @@
 # compiled output
 /dist
 /node_modules
-/mongo/mongo-data-4.4
-/mongo-data-4.4
-mongo-data-4.4
+*.env
 
 
 
@@ -39,5 +37,3 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# files
-.env
