@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
-import { ALREADY_RIGISTERED_ERROR } from './auth.constnce';
+import { ALREADY_RIGISTERED_ERROR } from './auth.constance';
 
 @Controller('auth')
 export class AuthController {
@@ -27,5 +27,9 @@ export class AuthController {
   }
   @HttpCode(200)
   @Post('login')
-  async login(@Body() dto: AuthDto) {}
+  async login(@Body() { login, password }: AuthDto) {
+    const { email } = await this.authService.validateUser(login, password);
+
+    return this.authService.login(email)
+  }
 }

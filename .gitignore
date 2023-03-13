@@ -2,7 +2,9 @@
 /dist
 /node_modules
 /mongo
+
 *.env
+.env
 
 
 
