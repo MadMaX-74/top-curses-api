@@ -7,16 +7,15 @@ import { ReviewService } from './review.service';
 @Module({
   controllers: [ReviewController],
   imports: [
-    TypegooseModule.forFeature([
-      {
-        typegooseClass: ReviewModel,
-        schemaOptions: {
-          collection: 'Review'
-        }
-      }
-    ])
+	TypegooseModule.forFeature([
+		{
+		typegooseClass: ReviewModel,
+		schemaOptions: {
+			collection: 'Review',
+		},
+		},
+	]),
   ],
-  providers: [ReviewService]
-
+  providers: [ReviewService],
 })
 export class ReviewModule {}

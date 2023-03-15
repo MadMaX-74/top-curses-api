@@ -3,9 +3,9 @@ import { AuthModule } from './auth/auth.module';
 import { TopPageModule } from './top-page/top-page.module';
 import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypegooseModule } from "nestjs-typegoose";
-import { getMongoConfig } from "./configs/mongo.config";
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { getMongoConfig } from './configs/mongo.config';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { getMongoConfig } from "./configs/mongo.config";
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: getMongoConfig
+      useFactory: getMongoConfig,
     }),
     AuthModule,
     TopPageModule,

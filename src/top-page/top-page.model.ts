@@ -24,25 +24,25 @@ export class TopPageAdvantage {
   description: string;
 }
 export interface TopPageModel extends Base {}
-@index({'$**': 'text'})
+@index({ '$**': 'text' })
 export class TopPageModel extends TimeStamps {
-  @prop({enum: TopLevelCategory})
+  @prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
   @prop()
   secondCategory: string;
-  @prop({unique: true})
+  @prop({ unique: true })
   alias: string;
   @prop()
   title: string;
   @prop()
   category: string;
-  @prop({type: () => HhData})
-  hh?: HhData
-  @prop({type: () => [TopPageAdvantage]})
-  advantages: TopPageAdvantage[]
+  @prop({ type: () => HhData })
+  hh?: HhData;
+  @prop({ type: () => [TopPageAdvantage] })
+  advantages: TopPageAdvantage[];
   @prop()
   seoText: string;
-  @prop({type: () => [String]})
+  @prop({ type: () => [String] })
   tags: string[];
   @prop()
   tagsTitle: string;

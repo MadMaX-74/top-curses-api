@@ -1,11 +1,16 @@
 import {
   Body,
   Controller,
-  Delete, Get,
-  HttpCode, NotFoundException,
+  Delete,
+  Get,
+  HttpCode,
+  NotFoundException,
   Param,
   Patch,
-  Post, UseGuards, UsePipes, ValidationPipe
+  Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { TopPageModel } from './top-page.model';
 import { FindTopPageDto } from './dto/find-topPage.dto';
@@ -26,35 +31,35 @@ export class TopPageController {
   @UseGuards(JwtGuard)
   @Get(':id')
   async get(@Param('id', IdValidationPipe) id: string) {
-    const page = await this.topPageService.findById(id)
+    const page = await this.topPageService.findById(id);
     if (!page) {
-      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR)
+      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR);
     }
     return page;
   }
   @UseGuards(JwtGuard)
   @Get('byAlias/:alias')
   async getByAlias(@Param('alias') alias: string) {
-    const page = await this.topPageService.findByAlias(alias)
+    const page = await this.topPageService.findByAlias(alias);
     if (!page) {
-      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR)
+      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR);
     }
     return page;
   }
   @UseGuards(JwtGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    const page = await this.topPageService.deleteById(id)
+    const page = await this.topPageService.deleteById(id);
     if (!page) {
-      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR)
+      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR);
     }
   }
 
   @Patch(':id')
   async patch(@Param('id') id: string, @Body() dto: CreatePageModel) {
-    const page = await this.topPageService.updateById(id, dto)
+    const page = await this.topPageService.updateById(id, dto);
     if (!page) {
-      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR)
+      throw new NotFoundException(TopPageConstance.PAGE_NOT_FOUND_ERROR);
     }
     return page;
   }
@@ -62,10 +67,10 @@ export class TopPageController {
   @HttpCode(200)
   @Post('find')
   async find(@Body() dto: FindTopPageDto) {
-    return this.topPageService.findByCategory(dto.firstCategory)
+    return this.topPageService.findByCategory(dto.firstCategory);
   }
   @Get('textSearch/:text')
   async textSearch(@Param('text') text: string) {
-    return this.topPageService.findByText(text)
+    return this.topPageService.findByText(text);
   }
 }
