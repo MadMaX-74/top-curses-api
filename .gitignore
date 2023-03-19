@@ -3,8 +3,6 @@
 /node_modules
 /mongo
 /uploads
-
-*.env
 .env
 
 
