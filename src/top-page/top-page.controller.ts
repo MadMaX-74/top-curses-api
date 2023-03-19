@@ -10,19 +10,20 @@ import {
   Post,
   UseGuards,
   UsePipes,
-  ValidationPipe,
+  ValidationPipe
 } from '@nestjs/common';
-import { TopPageModel } from './top-page.model';
 import { FindTopPageDto } from './dto/find-topPage.dto';
 import { TopPageService } from './top-page.service';
 import { CreatePageModel } from './dto/create-top-page.dto';
 import { IdValidationPipe } from '../pipes/id-validation-pipe';
 import { TopPageConstance } from './top-page.constance';
 import { JwtGuard } from '../auth/guards/jwt.guard';
+import { HhService } from '../hh/hh.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Controller('top-page')
 export class TopPageController {
-  constructor(private readonly topPageService: TopPageService) {}
+  constructor(private readonly topPageService: TopPageService, private readonly hhService: HhService) {}
   @UseGuards(JwtGuard)
   @Post('create')
   async create(@Body() dto: CreatePageModel) {
@@ -73,4 +74,14 @@ export class TopPageController {
   async textSearch(@Param('text') text: string) {
     return this.topPageService.findByText(text);
   }
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async test() {
+    const data = await this.topPageService.findForHhUpdate(new Date());
+    for (let page of data) {
+      const hhData = await this.hhService.getData(page.category);
+      page.hh = hhData;
+      await this.topPageService.updateById(page._id, page);
+    }
+  }
 }
+
